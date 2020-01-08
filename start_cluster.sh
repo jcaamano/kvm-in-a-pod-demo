@@ -49,9 +49,10 @@ function install_macvtap_device_plugin {
     if [ -z $is_macvtap_dev_plugin_installed ]; then
         build_macvtap_device_plugin
     fi
-    kubectl create configmap \
+    cd $KUBEVIRT_REPO_ROOT
+    cluster-up/kubectl.sh create configmap \
 	    device-plugin-network-macvtap --from-literal=masters="eth0"
-    kubectl apply -f \
+    cluster-up/kubectl.sh apply -f \
 	    https://raw.githubusercontent.com/jcaamano/kubernetes-device-plugins/master/manifests/macvtap-ds.yml
 }
 
